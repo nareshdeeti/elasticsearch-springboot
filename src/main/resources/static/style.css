@@ -1,0 +1,39 @@
+body {
+    padding: 0%;
+    margin: 0%;
+}
+
+.search {
+    
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    text-align: center;
+
+    margin: 10%;
+
+}
+
+input[type='text'] {
+
+    border-radius: 14px;
+    border-style: outset;
+    border-color: rgb(4, 241, 4);
+
+    size: 100%;
+}
+
+input[type='submit'] {
+
+    
+    border-radius: 14px;
+    border-style: none;
+    border-color: rgb(243, 248, 243);
+
+    background-color: white;
+    color: purple;
+
+    margin-top: 3px;
+    position: relative;
+
+    cursor: pointer;
+}
