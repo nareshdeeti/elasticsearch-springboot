@@ -1,7 +1,7 @@
 package io.deeti.elasticsearch.controller;
 
 import io.deeti.elasticsearch.dto.LaptopDto;
-import io.deeti.elasticsearch.esearch.Searcher;
+import io.deeti.elasticsearch.es.service.Searcher;
 import io.deeti.elasticsearch.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
