@@ -17,8 +17,10 @@ spring:
 
 # elsaticsearch configs
   elasticsearch:
-    uris: http://localhost:9200
-    username: elastic
-    password: changeme
+#    uris: http://localhost:9200
+#    uris: https://vvaoul96ry.loclx.io/ #with localXpose
+#    username: elastic
+#    password: changeme
+#    password: QF0D4oc3ndC+_Ze_Ryk-
 
   

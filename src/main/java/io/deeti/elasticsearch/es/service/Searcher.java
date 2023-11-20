@@ -4,6 +4,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.deeti.elasticsearch.es.model.Laptop;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.springframework.data.elasticsearch.core.AggregationsContainer;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -36,11 +41,24 @@ public class Searcher {
         mapper.findAndRegisterModules();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+        TermsAggregationBuilder countByBrand = new TermsAggregationBuilder("countByBrand")
+                .field("brand.keyword");
+
+        FieldSortBuilder laptopModel = SortBuilders.fieldSort("laptopModel.keyword");
+
         Query query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.multiMatchQuery(text, "laptopModel", "brand"))
+                .withAggregations(countByBrand)
+                .withSorts(laptopModel)
                 .build();
 
         SearchHits<Laptop> searchHits = client.search(query, Laptop.class);
+        AggregationsContainer<?> aggregations = searchHits.getAggregations();
+
+        if (aggregations != null) {
+            Object aggregation = aggregations.aggregations();
+        }
+
         return searchHits
                 .stream()
                 .map(SearchHit::getContent)
